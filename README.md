@@ -6,8 +6,8 @@ Viewer/editor didático em Three.js para estudar o funcionamento de uma chave co
 
 - modelo 3D procedural dividido em componentes independentes;
 - seleção por clique ou pela árvore de componentes;
-- mover/rotacionar/escalar a peça selecionada;
-- zoom, órbita e pan;
+- mover, rotacionar e escalar a peça selecionada com `TransformControls`;
+- zoom, órbita e pan com `OrbitControls`;
 - mostrar/ocultar componentes;
 - vista explodida e montagem;
 - animação de bobina energizada, armadura e contatos;
@@ -23,31 +23,40 @@ site/
   index.html
   styles.css
   app.js
+package.json
+vite.config.js
 ```
-
-O projeto é estático e não exige etapa de build.
 
 ## Rodar localmente
 
-Sirva a pasta `site` com qualquer servidor HTTP. Exemplo:
+Requer Node.js 20+.
 
 ```bash
-python -m http.server 8080 -d site
+npm install
+npm run dev
 ```
 
-Depois abra `http://localhost:8080`.
+O Vite mostrará a URL local no terminal.
 
-> Não abra o `index.html` diretamente via `file://`, pois os módulos ES do navegador precisam ser servidos por HTTP.
+Para testar o build de produção:
+
+```bash
+npm run build
+npm run preview
+```
 
 ## Cloudflare Pages
 
 Ao conectar este repositório ao Cloudflare Pages:
 
-- Framework preset: `None`
-- Build command: deixe vazio
-- Build output directory: `site`
+- Framework preset: `Vite` ou `None`
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Root directory: deixe no diretório raiz do repositório
 
-Depois de publicar, qualquer push na branch principal pode disparar um novo deploy.
+O `vite.config.js` usa `site` como raiz da aplicação e gera o resultado final em `dist`.
+
+Depois de publicar, novos pushes na branch principal podem disparar automaticamente novos deploys.
 
 ## Controles
 
@@ -63,4 +72,4 @@ Depois de publicar, qualquer push na branch principal pode disparar um novo depl
 
 ## Próxima evolução
 
-O modelo atual usa geometrias procedurais para tornar cada componente imediatamente editável. A arquitetura foi deixada preparada para, em uma próxima etapa, trocar grupos específicos por meshes de um arquivo `.glb/.gltf` modelado a partir do contator real.
+O modelo atual usa geometrias procedurais para tornar cada componente imediatamente editável. A arquitetura foi deixada preparada para, em uma próxima etapa, trocar grupos específicos por meshes de um arquivo `.glb/.gltf` modelado a partir do contator real, mantendo a seleção, os controles, a vista explodida e as animações.

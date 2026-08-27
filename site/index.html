@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Visualizador 3D interativo de uma chave contatora eletromagnética industrial." />
+  <title>Contator 3D Interativo</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Eletrotécnica · Three.js</p>
+        <h1>Contator 3D Interativo</h1>
+      </div>
+      <div class="top-actions" aria-label="Ações principais">
+        <button id="assembleBtn" class="button">Montar</button>
+        <button id="explodeBtn" class="button button-primary">Explodir</button>
+        <button id="energizeBtn" class="button button-accent" aria-pressed="false">Energizar bobina</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="sidebar panel" aria-label="Editor de componentes">
+        <section>
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Cena</p>
+              <h2>Componentes</h2>
+            </div>
+            <button id="showAllBtn" class="icon-button" title="Mostrar todos os componentes">Todos</button>
+          </div>
+          <p class="hint">Clique em uma peça no modelo ou selecione pela lista.</p>
+          <div id="componentList" class="component-list"></div>
+        </section>
+
+        <section class="editor-section">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Transformação</p>
+              <h2 id="selectedTitle">Nenhuma peça selecionada</h2>
+            </div>
+          </div>
+
+          <div class="segmented" role="group" aria-label="Modo de transformação">
+            <button class="mode-button is-active" data-mode="translate">Mover <span>W</span></button>
+            <button class="mode-button" data-mode="rotate">Girar <span>E</span></button>
+            <button class="mode-button" data-mode="scale">Escalar <span>R</span></button>
+          </div>
+
+          <div class="coords-grid" aria-label="Posição do componente selecionado">
+            <label>X<input id="posX" type="number" step="0.1" inputmode="decimal" /></label>
+            <label>Y<input id="posY" type="number" step="0.1" inputmode="decimal" /></label>
+            <label>Z<input id="posZ" type="number" step="0.1" inputmode="decimal" /></label>
+          </div>
+
+          <div class="stacked-actions">
+            <button id="resetSelectedBtn" class="button" disabled>Resetar peça</button>
+            <button id="hideSelectedBtn" class="button" disabled>Ocultar peça</button>
+          </div>
+        </section>
+
+        <section class="editor-section">
+          <p class="section-kicker">Layout</p>
+          <h2>Salvar e compartilhar</h2>
+          <div class="stacked-actions">
+            <button id="saveBtn" class="button">Salvar no navegador</button>
+            <button id="restoreBtn" class="button">Restaurar salvo</button>
+            <button id="exportBtn" class="button">Exportar JSON</button>
+            <label class="button file-button">Importar JSON<input id="importInput" type="file" accept="application/json,.json" /></label>
+            <button id="resetAllBtn" class="button button-danger">Resetar tudo</button>
+          </div>
+        </section>
+      </aside>
+
+      <section class="viewport-panel panel">
+        <div id="viewport" class="viewport" role="application" aria-label="Modelo 3D interativo do contator">
+          <div id="loading" class="loading-card">Carregando Three.js…</div>
+          <div class="viewport-badges" aria-hidden="true">
+            <span>Arraste para orbitar</span>
+            <span>Scroll para zoom</span>
+            <span>W/E/R transforma</span>
+          </div>
+          <div id="statusBadge" class="status-badge">Bobina desenergizada</div>
+        </div>
+      </section>
+
+      <aside class="info-panel panel" aria-label="Informações técnicas">
+        <section>
+          <p class="section-kicker">Componente</p>
+          <h2 id="infoTitle">Selecione uma peça</h2>
+          <p id="infoDescription" class="info-description">Explore o modelo para identificar a bobina, o núcleo, a armadura, os contatos e os terminais.</p>
+          <dl class="spec-list">
+            <div><dt>Função</dt><dd id="infoFunction">—</dd></div>
+            <div><dt>Estado</dt><dd id="infoState">—</dd></div>
+          </dl>
+        </section>
+
+        <section class="editor-section">
+          <p class="section-kicker">Sequência</p>
+          <h2>Princípio de funcionamento</h2>
+          <ol class="sequence-list">
+            <li><span>1</span><div><strong>A1/A2 energizados</strong><small>A bobina cria fluxo magnético.</small></div></li>
+            <li><span>2</span><div><strong>Armadura atraída</strong><small>O entreferro diminui e o mecanismo se desloca.</small></div></li>
+            <li><span>3</span><div><strong>Contatos fecham</strong><small>L1–T1, L2–T2 e L3–T3 conduzem.</small></div></li>
+            <li><span>4</span><div><strong>Bobina desenergiza</strong><small>As molas devolvem o conjunto ao repouso.</small></div></li>
+          </ol>
+        </section>
+
+        <section class="editor-section legend-section">
+          <p class="section-kicker">Legenda</p>
+          <div class="legend-grid">
+            <span><i class="swatch swatch-copper"></i>Cobre</span>
+            <span><i class="swatch swatch-steel"></i>Aço</span>
+            <span><i class="swatch swatch-plastic"></i>Isolante</span>
+            <span><i class="swatch swatch-coil"></i>Bobina</span>
+          </div>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
